@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('node:path');
 const router = require('./routes/router.js');
+require('dotenv').config();
 
 const app = express();
 
@@ -18,5 +19,7 @@ app.use(router);
 
 // serve app
 app.listen(PORT, HOST, () => {
+  console.log('*************************');
   console.log(`>>> Listening on ${HOST}:${PORT}`);
+  console.log('*************************');
 });
