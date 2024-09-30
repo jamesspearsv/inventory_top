@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Authors</title>
+    <%- include('style'); %>
+  </head>
+  <body>
+    <%- include("nav"); %>
+    <main>
+      <table>
+        <thead>
+          <th>ID</th>
+          <th>Author</th>
+          <th>Number of Titles</th>
+        </thead>
+        <tbody>
+          <% authors.map((author) => { %>
+          <tr>
+            <td><%=author.author_id%></td>
+            <td><%=author.author_name%></td>
+            <td><%=author.number_of_titles%></td>
+            <td>
+              <a href="/authors/<%=author.author_id%>">
+                <button>View</button>
+              </a>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </main>
+  </body>
+</html>

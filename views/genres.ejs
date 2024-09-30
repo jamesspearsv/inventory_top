@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Genres</title>
+    <%- include('style'); %>
+  </head>
+  <body>
+    <%- include("nav"); %>
+    <main>
+      <table>
+        <thead>
+          <th>ID</th>
+          <th>Genre</th>
+          <th>Number of Titles</th>
+        </thead>
+        <tbody>
+          <% genres.map((genre) => { %>
+          <tr>
+            <td><%=genre.genre_id%></td>
+            <td><%=genre.genre_name%></td>
+            <td><%=genre.number_of_titles%></td>
+            <td>
+              <a href="/genres/<%=genre.genre_id%>">
+                <button>View</button>
+              </a>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </main>
+  </body>
+</html>

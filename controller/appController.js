@@ -2,7 +2,7 @@ const db = require('../db/dbController');
 
 async function getAllTitles(req, res) {
   const rows = await db.selectAllTitles();
-  res.json(rows);
+  res.render('titles', { books: rows });
 }
 
 async function getTitle(req, res) {
@@ -13,7 +13,7 @@ async function getTitle(req, res) {
 
 async function getAllAuthors(req, res) {
   const rows = await db.selectAllAuthors();
-  res.json(rows);
+  res.render('authors', { authors: rows });
 }
 
 async function getAuthor(req, res) {
@@ -24,7 +24,7 @@ async function getAuthor(req, res) {
 
 async function getAllGenres(req, res) {
   const rows = await db.selectAllGenres();
-  res.json(rows);
+  res.render('genres', { genres: rows });
 }
 
 async function getGenre(req, res) {

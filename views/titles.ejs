@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Titles</title>
+    <%- include('style'); %>
+  </head>
+  <body>
+    <%- include("nav"); %>
+    <main>
+      <table>
+        <thead>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Genre</th>
+        </thead>
+        <tbody>
+          <% books.map((book) => { %>
+          <tr>
+            <td><%=book.book_id%></td>
+            <td><%=book.title%></td>
+            <td><%=book.author_name%></td>
+            <td><%=book.genre_name%></td>
+            <td>
+              <a href="/titles/<%=book.book_id%>">
+                <button>View</button>
+              </a>
+            </td>
+            <td>
+                <a href="/update/<%=book.book_id%>">
+                  <button>Update</button>
+                </a>
+              </td>
+            <td>
+                <form action="/delete/<%=book.book_id%>" method="post">
+                    <button type="submit"
+                    class="danger">Delete</button>
+                </form>
+              </a>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </main>
+  </body>
+</html>

@@ -22,7 +22,7 @@ router.delete('/delete/:id');
 
 // index route
 router.get('/', (req, res) => {
-  res.send('Hello, Router!');
+  res.render('index');
 });
 
 module.exports = router;
