@@ -24,21 +24,14 @@
             <td><%=book.author_name%></td>
             <td><%=book.genre_name%></td>
             <td>
-              <a href="/titles/<%=book.book_id%>">
-                <button>View</button>
+              <a href="/update/<%=book.book_id%>">
+                <button>Update</button>
               </a>
             </td>
             <td>
-                <a href="/update/<%=book.book_id%>">
-                  <button>Update</button>
-                </a>
-              </td>
-            <td>
-                <form action="/delete/<%=book.book_id%>" method="post">
-                    <button type="submit"
-                    class="danger">Delete</button>
-                </form>
-              </a>
+              <form action="/delete/<%=book.book_id%>" method="post">
+                <button type="submit" class="danger">Delete</button>
+              </form>
             </td>
           </tr>
           <% }) %>

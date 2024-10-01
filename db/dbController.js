@@ -64,6 +64,61 @@ async function selectGenre(id) {
   return rows;
 }
 
+async function insertIntoBooks(data) {
+  // Check if author and genre already exist in database
+  const authors = await pool.query(
+    'SELECT * FROM authors WHERE authors.author_name=$1',
+    [data.author]
+  );
+
+  const genres = await pool.query('SELECT * FROM genres WHERE genre_name=$1', [
+    data.genre,
+  ]);
+
+  // Set author and genre id if possible
+  let author_id = authors.rowCount ? authors.rows[0].author_id : null;
+  let genre_id = genres.rowCount ? genres.rows[0].genre_id : null;
+
+  // Add new author and genre if needed
+  if (!author_id) {
+    const { rows } = await pool.query(
+      'INSERT INTO authors(author_name) VALUES($1) RETURNING author_id',
+      [data.author]
+    );
+
+    author_id = rows[0].author_id;
+  }
+
+  if (!genre_id) {
+    const { rows } = await pool.query(
+      'INSERT INTO genres(genre_name) VALUES($1) RETURNING genre_id',
+      [data.genre]
+    );
+
+    genre_id = rows[0].genre_id;
+  }
+
+  // Insert new book into db
+  await pool.query(
+    'INSERT INTO books(title, author_id, genre_id) VALUES($1, $2, $3)',
+    [data.title, author_id, genre_id]
+  );
+
+  return 1;
+}
+
+async function deleteFromBooks(id) {
+  await pool.query('DELETE FROM books where book_id=$1', [id]);
+  return 1;
+}
+
+async function updateBook(id, data) {
+  await deleteFromBooks(id);
+  await insertIntoBooks(data);
+
+  return 1;
+}
+
 module.exports = {
   selectAllTitles,
   selectTitle,
@@ -71,4 +126,7 @@ module.exports = {
   selectAuthor,
   selectAllGenres,
   selectGenre,
+  insertIntoBooks,
+  deleteFromBooks,
+  updateBook,
 };

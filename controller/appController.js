@@ -34,6 +34,45 @@ async function getGenre(req, res) {
   rows.length > 0 ? res.json(rows) : res.send('Nothing found');
 }
 
+function addBookGet(req, res) {
+  res.render('add');
+}
+
+async function addBookPost(req, res) {
+  const data = {
+    title: req.body.title.trim(),
+    author: req.body.author.trim(),
+    genre: req.body.genre.toLowerCase().trim(),
+  };
+
+  await db.insertIntoBooks(data);
+  res.redirect('/titles');
+}
+
+async function deleteBook(req, res) {
+  const book_id = req.params.id;
+  await db.deleteFromBooks(book_id);
+  res.redirect('/titles');
+}
+
+async function updateGet(req, res) {
+  const book_id = req.params.id;
+  const row = await db.selectTitle(book_id);
+  res.render('update', { book: row });
+}
+
+async function updatePost(req, res) {
+  const book_id = req.params.id;
+  const data = {
+    title: req.body.title.trim(),
+    author: req.body.author.trim(),
+    genre: req.body.genre.trim(),
+  };
+
+  await db.updateBook(book_id, data);
+  res.redirect('/titles');
+}
+
 module.exports = {
   getAllTitles,
   getTitle,
@@ -41,4 +80,9 @@ module.exports = {
   getAuthor,
   getAllGenres,
   getGenre,
+  addBookGet,
+  addBookPost,
+  deleteBook,
+  updateGet,
+  updatePost,
 };
